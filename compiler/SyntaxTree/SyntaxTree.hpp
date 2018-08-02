@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#include <string>
+#include <memory>
 
 
 namespace compiler
@@ -7,8 +9,8 @@ namespace compiler
 	class SyntaxTree
 	{
 	public:
-		SyntaxTree();
-		virtual ~SyntaxTree();
+		SyntaxTree() = default;
+		virtual ~SyntaxTree() = default;
 
 		virtual std::string toCode() const = 0;
 

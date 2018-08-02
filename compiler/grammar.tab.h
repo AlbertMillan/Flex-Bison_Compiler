@@ -49,13 +49,14 @@ extern int yydebug;
     COLON = 259,
     RIGHT_ARROW = 260,
     LEFT_BRACE = 261,
-    RIGHT_BRACE = 262
+    RIGHT_BRACE = 262,
+    SEMICOLON = 263
   };
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef double YYSTYPE;
+typedef void * YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

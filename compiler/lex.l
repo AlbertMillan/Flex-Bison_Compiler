@@ -1,6 +1,8 @@
 %option noyywrap
 %{
 	#include "grammar.tab.h"
+	#include "SyntaxTree/SyntaxTree.hpp"
+	#include "SyntaxTree/Name.hpp"
 %}
 
 alpha		[a-zA-Z]
@@ -9,11 +11,12 @@ whitespace	[ \r\t\v\f ]
 linefeed	\n
 
 %%
-{name}				{ printf("Lex: name\n"); return NAME; }
-":"					{ printf("Lex: :\n"); return COLON; }
-"->"				{ printf("Lex: ->\n"); return RIGHT_ARROW; }
-"}"					{ printf("Lex: }\n"); return RIGHT_BRACE; }
-"{"					{ printf("Lex: {\n"); return LEFT_BRACE;  }
+{name}				{ yylval = reinterpret_cast<void *>(new compiler::Name(yytext)); return NAME; }
+":"					{ return COLON; }
+";"					{ return SEMICOLON; }
+"->"				{ return RIGHT_ARROW; }
+"}"					{ return RIGHT_BRACE; }
+"{"					{ return LEFT_BRACE;  }
 {whitespace}
 {linefeed}			++yylineno;
 %%

@@ -67,10 +67,12 @@
 	#include <math.h>
 	#include <stdio.h>
 	#include <stdlib.h>
+	#include <iostream>
+	#include "SyntaxTree/SyntaxTree.hpp"
 	int yylex (void);
 	void yyerror (char const *);
 
-#line 74 "grammar.tab.c" /* yacc.c:339  */
+#line 76 "grammar.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -109,13 +111,14 @@ extern int yydebug;
     COLON = 259,
     RIGHT_ARROW = 260,
     LEFT_BRACE = 261,
-    RIGHT_BRACE = 262
+    RIGHT_BRACE = 262,
+    SEMICOLON = 263
   };
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef double YYSTYPE;
+typedef void * YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
@@ -129,7 +132,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 133 "grammar.tab.c" /* yacc.c:358  */
+#line 136 "grammar.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -371,21 +374,21 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   6
+#define YYLAST   11
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  8
+#define YYNTOKENS  9
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  2
+#define YYNNTS  4
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  3
+#define YYNRULES  6
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  8
+#define YYNSTATES  12
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   262
+#define YYMAXUTOK   263
 
 #define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -420,14 +423,14 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7
+       5,     6,     7,     8
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    19,    19,    20
+       0,    21,    21,    22,    25,    26,    29
 };
 #endif
 
@@ -437,7 +440,8 @@ static const yytype_uint8 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "NAME", "COLON", "RIGHT_ARROW",
-  "LEFT_BRACE", "RIGHT_BRACE", "$accept", "input", YY_NULLPTR
+  "LEFT_BRACE", "RIGHT_BRACE", "SEMICOLON", "$accept", "input",
+  "statements", "statement", YY_NULLPTR
 };
 #endif
 
@@ -446,14 +450,14 @@ static const char *const yytname[] =
    (internal) symbol number NUM (which must be that of a token).  */
 static const yytype_uint16 yytoknum[] =
 {
-       0,   256,   257,   258,   259,   260,   261,   262
+       0,   256,   257,   258,   259,   260,   261,   262,   263
 };
 # endif
 
-#define YYPACT_NINF -5
+#define YYPACT_NINF -4
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-5)))
+  (!!((Yystate) == (-4)))
 
 #define YYTABLE_NINF -1
 
@@ -464,7 +468,8 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -3,    -2,     1,    -1,    -5,     0,    -4,    -5
+      -2,    -1,     2,     0,    -4,     1,    -4,    -3,     3,    -4,
+      -4,    -4
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -472,19 +477,20 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       3,     0,     0,     0,     1,     0,     0,     2
+       3,     0,     0,     0,     1,     0,     5,     0,     0,     2,
+       4,     6
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -5,    -5
+      -4,    -4,    -4,    -4
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2
+      -1,     2,     7,    10
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -492,31 +498,34 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-       1,     4,     3,     7,     5,     0,     6
+       8,     1,     4,     3,     9,     5,     0,     6,     0,     0,
+       0,    11
 };
 
 static const yytype_int8 yycheck[] =
 {
-       3,     0,     4,     7,     5,    -1,     6
+       3,     3,     0,     4,     7,     5,    -1,     6,    -1,    -1,
+      -1,     8
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     3,     9,     4,     0,     5,     6,     7
+       0,     3,    10,     4,     0,     5,     6,    11,     3,     7,
+      12,     8
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,     8,     9,     9
+       0,     9,    10,    10,    11,    11,    12
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     5,     0
+       0,     2,     6,     0,     2,     0,     2
 };
 
 
@@ -1192,8 +1201,20 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-      
-#line 1197 "grammar.tab.c" /* yacc.c:1646  */
+        case 4:
+#line 25 "compiler/grammar.y" /* yacc.c:1646  */
+    {}
+#line 1208 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 6:
+#line 29 "compiler/grammar.y" /* yacc.c:1646  */
+    { std::cout << "";}
+#line 1214 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+
+#line 1218 "grammar.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1421,8 +1442,10 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 22 "compiler/grammar.y" /* yacc.c:1906  */
+#line 34 "compiler/grammar.y" /* yacc.c:1906  */
 
+
+std::unique_ptr<compiler::SyntaxTree> root();
 
 void yyerror(char const *x)
 {
